@@ -1,15 +1,5 @@
 {
   "name": "garde-manger",
-  "version": "0.0.0",
-  "authors": [
-    "Celine Louvet <celine.louvet@gmail.com>"
-  ],
-  "description": "Cooking recipes",
-  "keywords": [
-    "cooking",
-    "recipe"
-  ],
-  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
