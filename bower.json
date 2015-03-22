@@ -1,0 +1,25 @@
+{
+  "name": "garde-manger",
+  "version": "0.0.0",
+  "authors": [
+    "Celine Louvet <celine.louvet@gmail.com>"
+  ],
+  "description": "Cooking recipes",
+  "keywords": [
+    "cooking",
+    "recipe"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendors",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.5",
+    "core-elements": "Polymer/core-elements#~0.5.5",
+    "paper-elements": "Polymer/paper-elements#~0.5.5"
+  }
+}
