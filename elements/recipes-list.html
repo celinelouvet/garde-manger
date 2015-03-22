@@ -1,0 +1,26 @@
+<link rel="import" href="/vendors/polymer/polymer.html">
+
+<link rel="import" href="/services/recipe-service.html">
+
+<link rel="import" href="/elements/recipe-summary.html">
+
+
+<polymer-element name="recipes-list">
+    <template>
+        <style>
+            :host {
+                display: block;
+                width: 100%;
+            }
+        </style>
+        <recipe-service id="service" recipes="{{recipes}}"></recipe-service>
+
+        <template repeat="{{recipe in recipes}}">
+            <recipe-summary recipe="{{recipe}}"></recipe-summary>
+        </template>
+
+    </template>
+    <script>
+        Polymer({});
+    </script>
+</polymer-element>

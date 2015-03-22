@@ -16,6 +16,8 @@
     <link rel="import" href="/vendors/core-toolbar/core-toolbar.html">
     <link rel="import" href="/vendors/core-icon-button/core-icon-button.html">
 
+    <link rel="import" href="/elements/recipes-list.html">
+
 
     <style>
         html, body {
@@ -36,9 +38,11 @@
     <core-header-panel main>
         <core-toolbar>
             <core-icon-button icon="menu" core-drawer-toggle></core-icon-button>
-            <div>Garde-Manger</div>
+            <div><a href="/">Garde-Manger</a></div>
         </core-toolbar>
-        <div> Content...</div>
+        <div>
+            <recipes-list></recipes-list>
+        </div>
     </core-header-panel>
 
 </core-drawer-panel>

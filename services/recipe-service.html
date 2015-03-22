@@ -1,0 +1,30 @@
+<link rel="import" href="/vendors/polymer/polymer.html">
+
+<link rel="import" href="/vendors/core-ajax/core-ajax.html">
+
+
+<polymer-element name="recipe-service" attributes="recipes">
+    <template>
+        <style>
+            :host {
+                display: none;
+            }
+        </style>
+        <core-ajax id="ajax"
+                   auto
+                   url="../stub/recipes.json"
+                   on-core-response="{{recipesLoaded}}"
+                   handleAs="json">
+        </core-ajax>
+    </template>
+    <script>
+        Polymer('recipe-service', {
+            created: function () {
+                this.recipes = [];
+            },
+            recipesLoaded: function () {
+                this.recipes = this.$.ajax.response.slice(0);
+            }
+        });
+    </script>
+</polymer-element>
