@@ -1,0 +1,24 @@
+<link rel="import" href="/vendors/polymer/polymer.html">
+
+<link rel="import" href="/services/type-service.html">
+
+
+<polymer-element name="types-list">
+    <template>
+        <style>
+            :host {
+                display: block;
+                width: 100%;
+            }
+        </style>
+        <type-service id="service" types="{{types}}"></type-service>
+
+        <template repeat="{{type in types}}">
+            <div>{{type}}</div>
+        </template>
+
+    </template>
+    <script>
+        Polymer({});
+    </script>
+</polymer-element>
