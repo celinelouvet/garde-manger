@@ -1,48 +1,100 @@
 var express = require('express');
 var router = express.Router();
 
-var recipes = [
-    {
-        "title": "Cake à la mozzarella",
-        "type": "Apéritif",
-        "parent": "cakes",
-        "serves": 6,
-        "prepare": "15 min",
-        "cook": "45 min",
-        "rest": "",
-        "ingredients": {
-            "tomates confites": "100 g",
-            "mozzarella": "1",
-            "jambon de Parme": "3 tranches fines",
-            "farine": "200 g",
-            "lait": "10 cl",
-            "oeufs": "3",
-            "levure": "1 sachet",
-            "beurre": "25 g (pour le moule)",
-            "huile d’olive": "10 cl",
-            "sel fin": "1/2 cc",
-            "poivre moulu": "1/2 cc"
-        },
-        "steps": [
-            "Préchauffez le four th. 7 (210°C). Versez la farine et la levure dans un saladier.",
-            "Creusez un puits au centre. Versez l’huile et le lait, salez et poivrez.",
-            "Mélangez en incorporant les œufs un par un.",
-            "Coupez les tomates confites en lamelles, la mozzarella en dés et le jambon en lanières.",
-            "Ajoutez les tomates, la mozzarella et le jambon de Parme à la pâte. Mélangez bien.",
-            "Beurrez et farinez un moule à cake.",
-            "Versez la pâte et tapez doucement le fond du moule sur le plan de travail pour faire partir d’éventuelles bulles d’air. Enfournez et faites cuire 10 min, puis baissez le four th.6 (180°C) et prolongez la cuisson 35 min.",
-            "Vérifiez la cuisson avec la lame d’un couteau.",
-            "Elle doit ressortir sèche et le cake doit être bombé et bien doré.",
-            "Laissez tiédir et démoulez sur une grille.",
-            "Servez tiède ou froid."
-        ]
-    }
-];
+var mongoose = require('mongoose');
+var u = require('underscore');
 
-var listRecipes = function (req, res) {
-    res.status(200).json(recipes);
-};
 
-router.get('/recipe', listRecipes);
+//-- Mongoose instanciation -------------------------
+var Schema = mongoose.Schema;
+
+
+//-- Recipe schema -------------------------
+var RecipeSchema = new Schema({
+    'title': String,
+    'type': String,
+    'parent': String,
+    'serves': Number,
+    'prepare': String,
+    'cook': String,
+    'rest': String,
+    'ingredients': [{
+        'name': String,
+        'quantity': String
+    }],
+    'steps': Array
+});
+var Recipe = mongoose.model('recipes', RecipeSchema);
+
+
+//-- Routing -------------------------
+router.get('/api/recipe', function (req, res, next) {
+    Recipe.find(function (err, recipes) {
+        if (err) return next(err);
+        return res.json(recipes);
+    });
+});
+
+router.get('/api/recipe/:id', function (req, res) {
+    var id = req.params.id;
+
+    Recipe.findById(id, function (err, recipe) {
+        if (err) return res.send(err);
+        if (u.isEmpty(recipe)) return res.sendStatus(404);
+        return res.json(recipe);
+    });
+});
+
+router.post('/api/recipe', function (req, res, next) {
+    var body = req.body;
+    if (!body) return res.sendStatus(400);
+
+    new Recipe(body)
+        .save(function (err, post) {
+            if (err) return next(err);
+            return res.json(post);
+        });
+});
+
+router.put('/api/recipe/:id', function (req, res) {
+    var id = req.params.id;
+    var body = req.body;
+
+    if (!body) return res.sendStatus(400);
+
+    Recipe.findById(id, function (err, recipe) {
+        if (err) return res.send(err);
+        if (u.isEmpty(recipe)) return res.sendStatus(404);
+
+        recipe.title = body.title;
+        recipe.type = body.type;
+        recipe.parent = body.parent;
+        recipe.serves = body.serves;
+        recipe.prepare = body.prepare;
+        recipe.cook = body.cook;
+        recipe.rest = body.rest;
+        recipe.ingredients = body.ingredients;
+        recipe.steps = body.steps;
+
+        recipe.save(function (err) {
+            if (err) return res.send(err);
+            return res.sendStatus(200);
+        });
+    });
+});
+
+router.delete('/api/recipe/:id', function (req, res) {
+    var id = req.params.id;
+
+    Recipe.findById(id, function (err, recipe) {
+        if (err) return res.send(err);
+        if (u.isEmpty(recipe)) return res.sendStatus(404);
+
+        recipe.remove(function (err) {
+            if (err) return res.send(err);
+            return res.sendStatus(200);
+        });
+    });
+});
 
 module.exports = router;
