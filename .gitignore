@@ -8,3 +8,5 @@
 vendors/
 node_modules/
 
+
+db/
