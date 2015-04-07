@@ -1,5 +1,8 @@
 <link rel="import" href="/vendors/polymer/polymer.html">
 
+<link rel="import" href="/vendors/core-menu/core-menu.html">
+<link rel="import" href="/vendors/paper-item/paper-item.html">
+
 <link rel="import" href="/services/type-service.html">
 
 
@@ -13,11 +16,15 @@
         </style>
         <type-service id="service" types="{{types}}"></type-service>
 
-        <template repeat="{{type in types}}">
-            <div>{{type.name}}</div>
-        </template>
-
+        <core-menu>
+            <template repeat="{{type in types}}">
+                <paper-item noink>
+                    <a href="/">{{type.name}}</a>
+                </paper-item>
+            </template>
+        </core-menu>
     </template>
+
     <script>
         Polymer({});
     </script>
