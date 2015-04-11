@@ -1,0 +1,57 @@
+<link rel="import" href="/vendors/polymer/polymer.html">
+
+<link rel="import" href="/vendors/paper-fab/paper-fab.html">
+
+<link rel="import" href="/elements/recipe-edit-ingredient.html">
+
+
+<polymer-element name="recipe-edit-ingredients" attributes="ingredients">
+    <template>
+        <style>
+            .white {
+                background: white;
+                color: black;
+            }
+        </style>
+
+
+        <div layout horizontal center>
+            <h3 flex>Ingrédients</h3>
+
+            <paper-fab mini icon="add" class="white" on-tap="{{handleAdd}}" title="Ajouter un nouvel ingrédient"></paper-fab>
+        </div>
+        <template repeat="{{ingredient in ingredients}}">
+            <recipe-edit-ingredient name="{{ingredient.name}}" quantity="{{ingredient.quantity}}"></recipe-edit-ingredient>
+        </template>
+
+    </template>
+
+    <script src="/vendors/underscore/underscore.js"></script>
+
+    <script>
+        Polymer({
+            ingredients: [],
+
+            handleAdd: function () {
+                this.ingredients.push({"name": "", "quantity": ""});
+            },
+
+            getIngredients: function () {
+                var elements = this.shadowRoot.querySelectorAll("recipe-edit-ingredient");
+
+                var ingredients = [];
+                for (var index = 0; index < elements.length; index++) {
+                    var element = elements[index];
+                    var ingredient = {
+                        "name": element.name,
+                        "quantity": element.quantity
+                    };
+                    ingredients.push(ingredient);
+                }
+
+                return ingredients;
+            }
+
+        });
+    </script>
+</polymer-element>

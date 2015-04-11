@@ -6,6 +6,7 @@
 <link rel="import" href="/services/recipe-service.html">
 
 <link rel="import" href="/elements/recipe-edit-type.html">
+<link rel="import" href="/elements/recipe-edit-ingredients.html">
 <link rel="import" href="/elements/recipe-edit-steps.html">
 
 <polymer-element name="recipe-edit-page" attributes="recipe">
@@ -30,6 +31,8 @@
 
             <recipe-edit-type selected="{{recipe.type}}"></recipe-edit-type>
 
+            <recipe-edit-ingredients id="ingredients" ingredients="{{recipe.ingredients}}"></recipe-edit-ingredients>
+
             <recipe-edit-steps id="steps" steps="{{recipe.steps}}"></recipe-edit-steps>
 
             <paper-button self-end on-tap="{{handleSave}}" raised>Save</paper-button>
@@ -41,6 +44,7 @@
 
             handleSave: function () {
                 this.recipe.steps = this.$.steps.getSteps();
+                this.recipe.ingredients = this.$.ingredients.getIngredients();
 
                 console.log('Save : ' + JSON.stringify(this.recipe));
 
