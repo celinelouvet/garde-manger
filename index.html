@@ -11,13 +11,7 @@
 
     <script src="/vendors/webcomponentsjs/webcomponents.js"></script>
 
-    <link rel="import" href="/vendors/core-drawer-panel/core-drawer-panel.html">
-    <link rel="import" href="/vendors/core-header-panel/core-header-panel.html">
-    <link rel="import" href="/vendors/core-toolbar/core-toolbar.html">
-    <link rel="import" href="/vendors/core-icon-button/core-icon-button.html">
-    <link rel="import" href="/vendors/app-router/app-router.html">
-
-    <link rel="import" href="/elements/types-list.html">
+    <link rel="import" href="/pages/body-page.html">
 
     <style>
         html, body {
@@ -28,30 +22,7 @@
 </head>
 
 <body fullbleed unresolved>
-
-<core-drawer-panel rightDrawer>
-
-    <core-header-panel drawer>
-        <core-toolbar></core-toolbar>
-        <types-list></types-list>
-    </core-header-panel>
-
-    <core-header-panel main>
-        <core-toolbar>
-            <core-icon-button icon="menu" core-drawer-toggle></core-icon-button>
-            <div><a href="/">Garde-Manger</a></div>
-        </core-toolbar>
-        <div>
-            <app-router mode="auto">
-                <app-route path="/" import="/pages/recipes-page.html"></app-route>
-                <app-route path="/recipes" redirect="/"></app-route>
-                <app-route path="/recipes/type/:type" import="/pages/recipes-type-page.html"></app-route>
-                <app-route path="/recipe/:recipeId" import="/pages/recipe-page.html"></app-route>
-            </app-router>
-        </div>
-    </core-header-panel>
-
-</core-drawer-panel>
+<body-page></body-page>
 </body>
 
 </html>
