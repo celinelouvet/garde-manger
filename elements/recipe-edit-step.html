@@ -1,0 +1,22 @@
+<link rel="import" href="/vendors/polymer/polymer.html">
+
+<link rel="import" href="/vendors/paper-input/paper-autogrow-textarea.html">
+<link rel="import" href="/vendors/paper-input/paper-input-decorator.html">
+
+<polymer-element name="recipe-edit-step" attributes="step content">
+    <template>
+        <paper-input-decorator floatingLabel label="Étape {{step}}">
+            <paper-autogrow-textarea>
+                <textarea id="step{{step}}" value="{{content}}"></textarea>
+            </paper-autogrow-textarea>
+        </paper-input-decorator>
+
+    </template>
+
+    <script>
+        Polymer({
+            content: "",
+            step: 0
+        });
+    </script>
+</polymer-element>

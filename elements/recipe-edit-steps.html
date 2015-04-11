@@ -1,0 +1,51 @@
+<link rel="import" href="/vendors/polymer/polymer.html">
+
+<link rel="import" href="/vendors/paper-fab/paper-fab.html">
+
+<link rel="import" href="/elements/recipe-edit-step.html">
+
+
+<polymer-element name="recipe-edit-steps" attributes="steps">
+    <template>
+        <style>
+            .white {
+                background: white;
+                color: black;
+            }
+        </style>
+
+        <div layout horizontal center>
+            <h3 flex>Étapes</h3>
+
+            <paper-fab mini icon="add" class="white" on-tap="{{handleAdd}}" title="Ajouter une nouvelle étape"></paper-fab>
+        </div>
+        <template repeat="{{content, step in steps}}">
+            <recipe-edit-step step="{{step + 1}}" content="{{content}}"></recipe-edit-step>
+        </template>
+
+    </template>
+
+    <script src="/vendors/underscore/underscore.js"></script>
+
+    <script>
+        Polymer({
+            steps: [],
+
+            handleAdd: function () {
+                this.steps.push("");
+            },
+
+            getSteps: function () {
+                var steps = this.shadowRoot.querySelectorAll("recipe-edit-step");
+
+                var contents = [];
+                for (var step = 0; step < steps.length; step++) {
+                    contents.push(steps[step].content);
+                }
+
+                return contents;
+            }
+
+        });
+    </script>
+</polymer-element>
