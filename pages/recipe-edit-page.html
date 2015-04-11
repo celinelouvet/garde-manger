@@ -1,0 +1,41 @@
+<link rel="import" href="/vendors/polymer/polymer.html">
+
+<link rel="import" href="/vendors/paper-input/paper-input.html">
+<link rel="import" href="/vendors/paper-button/paper-button.html">
+
+<link rel="import" href="/services/recipe-service.html">
+
+
+<polymer-element name="recipe-edit-page" attributes="recipe">
+    <template>
+        <style>
+            form {
+                padding: 10px;
+            }
+        </style>
+
+        <recipe-service id="recipeService"></recipe-service>
+
+        <form id="recipeForm" layout vertical left-justified>
+            <paper-input floatingLabel label="Titre" value="{{recipe.title}}"></paper-input>
+            <paper-input floatingLabel label="Pour (nombre de personnes)" value="{{recipe.serves}}"></paper-input>
+            <paper-input floatingLabel label="Temps de préparation (en minutes)" value="{{recipe.prepare}}"></paper-input>
+            <paper-input floatingLabel label="Temps de cuisson (en minutes)" value="{{recipe.cook}}"></paper-input>
+            <paper-input floatingLabel label="Temps de repos (en minutes)" value="{{recipe.rest}}"></paper-input>
+
+            <paper-button self-end on-tap="{{handleSave}}" raised>Save</paper-button>
+        </form>
+    </template>
+    <script>
+        Polymer({
+            recipe: {},
+
+            handleSave: function () {
+                console.log('Save : ' + JSON.stringify(this.recipe));
+
+                this.$.recipeService.save(this.recipe);
+            }
+        });
+    </script>
+</polymer-element>
+

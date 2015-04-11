@@ -51,6 +51,19 @@
                 }
             },
 
+            save: function (recipe) {
+                if (!_.isUndefined(recipe)) {
+
+                    var ajax = this.$.ajax;
+                    ajax.url = '/api/recipe';
+                    ajax.method = 'POST';
+                    ajax.contentType = 'application/json';
+                    ajax.body = JSON.stringify(recipe);
+
+                    ajax.go();
+                }
+            },
+
             handleResponse: function () {
 
                 var response = this.$.ajax.response;
