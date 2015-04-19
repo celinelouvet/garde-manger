@@ -40,7 +40,8 @@
                         <app-route path="/recipes" redirect="/"></app-route>
                         <app-route path="/recipes/type/:type" import="/pages/recipes-type-page.html"></app-route>
                         <app-route path="/recipe/new" import="/pages/recipe-edit-page.html"></app-route>
-                        <app-route path="/recipe/:recipeId" import="/pages/recipe-page.html"></app-route>
+                        <app-route path="/recipe/:recipeId" import="/pages/recipe-page.html" bindRouter></app-route>
+                        <app-route path="/recipe/:recipeId/edit" import="/pages/recipe-edit-page.html"></app-route>
                     </app-router>
                 </div>
             </core-header-panel>

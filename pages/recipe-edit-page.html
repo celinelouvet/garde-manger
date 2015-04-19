@@ -9,7 +9,7 @@
 <link rel="import" href="/elements/recipe-edit-ingredients.html">
 <link rel="import" href="/elements/recipe-edit-steps.html">
 
-<polymer-element name="recipe-edit-page" attributes="recipe">
+<polymer-element name="recipe-edit-page" attributes="recipe recipeId">
     <template>
         <style>
             form {
@@ -41,6 +41,11 @@
     <script>
         Polymer({
             recipe: {},
+            recipeIdChanged: function () {
+                if (!_.isUndefined(this.recipeId)) {
+                    this.$.recipeService.getById(this.recipeId);
+                }
+            },
 
             handleSave: function () {
                 this.recipe.steps = this.$.steps.getSteps();

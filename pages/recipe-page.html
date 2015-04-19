@@ -1,13 +1,18 @@
 <link rel="import" href="/vendors/polymer/polymer.html">
 
+<link rel="import" href="/vendors/paper-icon-button/paper-icon-button.html">
+
 <link rel="import" href="/services/recipe-service.html">
 
 
-<polymer-element name="recipe-page" attributes="recipeId">
+<polymer-element name="recipe-page" attributes="recipeId router">
     <template>
         <recipe-service id="service" recipe="{{recipe}}"></recipe-service>
 
-        <h2>{{recipe.title}}</h2>
+        <div layout horizontal center>
+            <h2 flex>{{recipe.title}}</h2>
+            <paper-icon-button icon="create" on-tap="{{handleEdit}}"></paper-icon-button>
+        </div>
         <h3>{{recipe.type}}</h3>
 
         <div>Pour {{recipe.serves}} personnes(s)</div>
@@ -39,6 +44,9 @@
                 if (!_.isUndefined(this.recipeId)) {
                     this.$.service.getById(this.recipeId);
                 }
+            },
+            handleEdit: function () {
+                this.router.go('/recipe/' + this.recipeId + '/edit');
             }
         });
     </script>
