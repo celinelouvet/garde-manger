@@ -1,6 +1,8 @@
 <link rel="import" href="/vendors/polymer/polymer.html">
 
 <link rel="import" href="/vendors/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/vendors/paper-dialog/paper-action-dialog.html">
+<link rel="import" href="/vendors/paper-button/paper-button.html">
 
 <link rel="import" href="/services/recipe-service.html">
 
@@ -12,6 +14,7 @@
         <div layout horizontal center>
             <h2 flex>{{recipe.title}}</h2>
             <paper-icon-button icon="create" on-tap="{{handleEdit}}"></paper-icon-button>
+            <paper-icon-button icon="delete" on-tap="{{handleConfirmDelete}}"></paper-icon-button>
         </div>
         <h3>{{recipe.type}}</h3>
 
@@ -33,6 +36,13 @@
         <template repeat="{{step in recipe.steps}}">
             <p>{{step}}.</p>
         </template>
+
+        <paper-action-dialog id="dialog" heading="Supprimer la recette {{recipe.title}}" backdrop>
+            <p>Êtes-vous sûr de vouloir supprimer la recette <b>{{recipe.title}}</b> ?</p>
+            <paper-button affirmative>Annuler</paper-button>
+            <paper-button affirmative on-tap="{{handleDelete}}">Supprimer</paper-button>
+        </paper-action-dialog>
+
     </template>
 
     <script src="/vendors/underscore/underscore.js"></script>
@@ -47,6 +57,14 @@
             },
             handleEdit: function () {
                 this.router.go('/recipe/' + this.recipeId + '/edit');
+            },
+            handleConfirmDelete: function () {
+                this.$.dialog.toggle();
+            },
+            handleDelete: function () {
+                this.$.service.delete(this.recipeId);
+                this.router.go('/');
+
             }
         });
     </script>
