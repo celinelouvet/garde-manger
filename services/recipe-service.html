@@ -2,7 +2,7 @@
 
 <link rel="import" href="/vendors/core-ajax/core-ajax.html">
 
-<polymer-element name="recipe-service" attributes="recipes recipeId">
+<polymer-element name="recipe-service" attributes="recipes recipe">
     <template>
         <style>
             :host {
@@ -10,28 +10,45 @@
             }
         </style>
         <core-ajax id="ajax"
-                   auto
-                   url="{{ url }}"
-                   on-core-response="{{recipesLoaded}}"
+                   on-core-response="{{handleResponse}}"
                    handleAs="json">
         </core-ajax>
     </template>
     <script src="/vendors/underscore/underscore.js"></script>
     <script>
         Polymer('recipe-service', {
-            created: function () {
-                this.recipes = [];
-                this.recipeId = "";
-                this.url = "/api/recipe";
+
+            list: function () {
+
+                var ajax = this.$.ajax;
+                ajax.url = '/api/recipe/';
+                ajax.method = 'GET';
+                ajax.contentType = 'application/json';
+
+                ajax.go();
             },
 
-            attributeChanged: function () {
-                if (!_.isEmpty(this.recipeId)) {
-                    this.url = "/api/recipe/" + this.recipeId;
+            getById: function (recipeId) {
+                if (!_.isUndefined(recipeId) && !_.isEmpty(recipeId)) {
+
+                    var ajax = this.$.ajax;
+                    ajax.url = '/api/recipe/' + recipeId;
+                    ajax.method = 'GET';
+                    ajax.contentType = 'application/json';
+
+                    ajax.go();
                 }
             },
-            recipesLoaded: function () {
-                this.recipes = this.$.ajax.response.slice(0);
+
+            handleResponse: function () {
+
+                var response = this.$.ajax.response;
+
+                if (_.isArray(response)) {
+                    this.recipes = response.slice(0);
+                } else {
+                    this.recipe = response;
+                }
             }
         });
     </script>

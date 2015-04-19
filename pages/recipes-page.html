@@ -14,7 +14,11 @@
         </template>
     </template>
     <script>
-        Polymer({});
+        Polymer({
+            ready: function () {
+                this.$.service.list();
+            }
+        });
     </script>
 </polymer-element>
 

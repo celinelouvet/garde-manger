@@ -3,36 +3,44 @@
 <link rel="import" href="/services/recipe-service.html">
 
 
-<polymer-element name="recipe-page">
+<polymer-element name="recipe-page" attributes="recipeId">
     <template>
-        <recipe-service recipeId="{{ recipeId }}" recipes="{{recipes}}"></recipe-service>
+        <recipe-service id="service" recipe="{{recipe}}"></recipe-service>
 
-        <template bind="{{ recipes[0] as recipe }}">
-            <h2>{{recipe.title}}</h2>
-            <h3>{{recipe.type}}</h3>
+        <h2>{{recipe.title}}</h2>
+        <h3>{{recipe.type}}</h3>
 
-            <div>Pour {{recipe.serves}} personnes(s)</div>
-            <div>
-                <div>Préparation : {{recipe.prepare}}</div>
-                <div>Cuisson : {{recipe.cook}}</div>
-                <div>Repos : {{recipe.rest}}</div>
-            </div>
-            <h3>Ingrédients :</h3>
-            <ul>
-                <template repeat="{{ingredient in recipe.ingredients}}">
-                    <li>
-                        <span>{{ingredient.name}} : </span> <span>{{ingredient.quantity}}</span>
-                    </li>
-                </template>
-            </ul>
-            <h3>Étapes :</h3>
-            <template repeat="{{step in recipe.steps}}">
-                <p>{{step}}.</p>
+        <div>Pour {{recipe.serves}} personnes(s)</div>
+        <div>
+            <div>Préparation : {{recipe.prepare}}</div>
+            <div>Cuisson : {{recipe.cook}}</div>
+            <div>Repos : {{recipe.rest}}</div>
+        </div>
+        <h3>Ingrédients :</h3>
+        <ul>
+            <template repeat="{{ingredient in recipe.ingredients}}">
+                <li>
+                    <span>{{ingredient.name}} : </span> <span>{{ingredient.quantity}}</span>
+                </li>
             </template>
+        </ul>
+        <h3>Étapes :</h3>
+        <template repeat="{{step in recipe.steps}}">
+            <p>{{step}}.</p>
         </template>
     </template>
+
+    <script src="/vendors/underscore/underscore.js"></script>
+
     <script>
-        Polymer({});
+        Polymer({
+
+            domReady: function () {
+                if (!_.isUndefined(this.recipeId)) {
+                    this.$.service.getById(this.recipeId);
+                }
+            }
+        });
     </script>
 </polymer-element>
 
