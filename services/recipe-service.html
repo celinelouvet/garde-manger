@@ -28,6 +28,17 @@
                 ajax.go();
             },
 
+            listByType: function (type) {
+                if (!_.isUndefined(type) && !_.isEmpty(type)) {
+                    var ajax = this.$.ajax;
+                    ajax.url = '/api/recipe/type/' + type;
+                    ajax.method = 'GET';
+                    ajax.contentType = 'application/json';
+
+                    ajax.go();
+                }
+            },
+
             getById: function (recipeId) {
                 if (!_.isUndefined(recipeId) && !_.isEmpty(recipeId)) {
 

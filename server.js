@@ -26,6 +26,7 @@ app.use(bodyParser.json({type: 'application/json'}));
 
 //-- Routing -------------------------
 app.get('/api/recipe', recipes);
+app.get('/api/recipe/type/:type', recipes);
 app.get('/api/recipe/:id', recipes);
 app.post('/api/recipe', recipes);
 app.put('/api/recipe/:id', recipes);

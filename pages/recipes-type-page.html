@@ -1,0 +1,24 @@
+<link rel="import" href="/vendors/polymer/polymer.html">
+
+<link rel="import" href="/services/recipe-service.html">
+<link rel="import" href="/elements/recipe-summary.html">
+
+
+<polymer-element name="recipes-type-page" attributes="type">
+    <template>
+
+        <recipe-service id="service" recipes="{{recipes}}"></recipe-service>
+
+        <template repeat="{{recipe in recipes}}">
+            <recipe-summary recipe="{{recipe}}"></recipe-summary>
+        </template>
+    </template>
+    <script>
+        Polymer({
+            domReady: function () {
+                this.$.service.listByType(this.type);
+            }
+        });
+    </script>
+</polymer-element>
+

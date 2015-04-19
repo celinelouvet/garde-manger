@@ -34,6 +34,13 @@ router.get('/api/recipe', function (req, res, next) {
         return res.json(recipes);
     });
 });
+router.get('/api/recipe/type/:type', function (req, res, next) {
+    var type = req.params.type;
+    Recipe.find({'type': type}, function (err, recipes) {
+        if (err) return next(err);
+        return res.json(recipes);
+    });
+});
 
 router.get('/api/recipe/:id', function (req, res) {
     var id = req.params.id;

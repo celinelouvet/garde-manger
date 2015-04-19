@@ -45,6 +45,7 @@
             <app-router mode="auto">
                 <app-route path="/" import="/pages/recipes-page.html"></app-route>
                 <app-route path="/recipes" redirect="/"></app-route>
+                <app-route path="/recipes/type/:type" import="/pages/recipes-type-page.html"></app-route>
                 <app-route path="/recipe/:recipeId" import="/pages/recipe-page.html"></app-route>
             </app-router>
         </div>
