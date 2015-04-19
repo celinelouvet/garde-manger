@@ -1,0 +1,31 @@
+<link rel="import" href="/vendors/polymer/polymer.html">
+
+<link rel="import" href="/vendors/core-menu/core-menu.html">
+<link rel="import" href="/vendors/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="/vendors/paper-dropdown/paper-dropdown.html">
+<link rel="import" href="/vendors/paper-item/paper-item.html">
+
+<link rel="import" href="/services/type-service.html">
+
+<polymer-element name="recipe-edit-type" attributes="selected">
+    <template>
+        <type-service id="typeService" types="{{types}}"></type-service>
+
+        <paper-dropdown-menu label="Sélectionner un type de recette">
+            <paper-dropdown class="dropdown">
+                <core-menu class="menu" selected="{{selected}}" valueattr="value">
+                    <template repeat="{{type in types}}">
+                        <paper-item value="{{type.name}}">{{type.name}}</paper-item>
+                    </template>
+                </core-menu>
+            </paper-dropdown>
+        </paper-dropdown-menu>
+
+    </template>
+
+    <script>
+        Polymer({
+            selected: ""
+        });
+    </script>
+</polymer-element>

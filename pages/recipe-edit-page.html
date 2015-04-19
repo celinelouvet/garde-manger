@@ -5,6 +5,7 @@
 
 <link rel="import" href="/services/recipe-service.html">
 
+<link rel="import" href="/elements/recipe-edit-type.html">
 
 <polymer-element name="recipe-edit-page" attributes="recipe">
     <template>
@@ -14,7 +15,7 @@
             }
         </style>
 
-        <recipe-service id="recipeService"></recipe-service>
+        <recipe-service id="recipeService" recipe="{{recipe}}"></recipe-service>
 
         <form id="recipeForm" layout vertical left-justified>
             <paper-input floatingLabel label="Titre" value="{{recipe.title}}"></paper-input>
@@ -22,6 +23,8 @@
             <paper-input floatingLabel label="Temps de préparation (en minutes)" value="{{recipe.prepare}}"></paper-input>
             <paper-input floatingLabel label="Temps de cuisson (en minutes)" value="{{recipe.cook}}"></paper-input>
             <paper-input floatingLabel label="Temps de repos (en minutes)" value="{{recipe.rest}}"></paper-input>
+
+            <recipe-edit-type selected="{{recipe.type}}"></recipe-edit-type>
 
             <paper-button self-end on-tap="{{handleSave}}" raised>Save</paper-button>
         </form>
