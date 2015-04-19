@@ -2,8 +2,7 @@
 
 <link rel="import" href="/vendors/core-ajax/core-ajax.html">
 
-
-<polymer-element name="recipe-service" attributes="recipes">
+<polymer-element name="recipe-service" attributes="recipes recipeId">
     <template>
         <style>
             :host {
@@ -12,15 +11,24 @@
         </style>
         <core-ajax id="ajax"
                    auto
-                   url="/api/recipe"
+                   url="{{ url }}"
                    on-core-response="{{recipesLoaded}}"
                    handleAs="json">
         </core-ajax>
     </template>
+    <script src="/vendors/underscore/underscore.js"></script>
     <script>
         Polymer('recipe-service', {
             created: function () {
                 this.recipes = [];
+                this.recipeId = "";
+                this.url = "/api/recipe";
+            },
+
+            attributeChanged: function () {
+                if (!_.isEmpty(this.recipeId)) {
+                    this.url = "/api/recipe/" + this.recipeId;
+                }
             },
             recipesLoaded: function () {
                 this.recipes = this.$.ajax.response.slice(0);

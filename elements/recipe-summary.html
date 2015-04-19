@@ -1,9 +1,9 @@
 <link rel="import" href="/vendors/polymer/polymer.html">
 
-
 <polymer-element name="recipe-summary" attributes="recipe">
     <template>
-        <h2>{{recipe.title}}</h2>
+        <h2><a href="#/recipe/{{recipe._id}}">{{recipe.title}}</a></h2>
+
         <div>Pour {{recipe.serves}} personnes(s)</div>
         <div>Préparation : {{recipe.prepare}}</div>
         <div>Cuisson : {{recipe.cook}}</div>
